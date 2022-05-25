@@ -57,7 +57,7 @@ export const checkSMTP = async (sender: string, recipient: string, exchange: str
     })
 
     socket.on('timeout', () => {
-      socket.emit('fail', 'Timeout')
+      socket.emit('fail', 'Timeout - PORT')
     })
 
     socket.on('connect', () => {
