@@ -6,6 +6,7 @@ const defaultOptions: ValidatorOptionsFinal = {
   validateTypo: true,
   validateDisposable: true,
   validateSMTP: true,
+  port: 25,
 }
 
 type Options = {
