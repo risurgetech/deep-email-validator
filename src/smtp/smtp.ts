@@ -8,11 +8,16 @@ const log = (...args: unknown[]) => {
   }
 }
 
-export const checkSMTP = async (sender: string, recipient: string, exchange: string): Promise<OutputFormat> => {
+export const checkSMTP = async (
+  sender: string,
+  recipient: string,
+  exchange: string,
+  port: number
+): Promise<OutputFormat> => {
   const timeout = 1000 * 10 // 10 seconds
   return new Promise(r => {
     let receivedData = false
-    const socket = net.createConnection(587, exchange)
+    const socket = net.createConnection(port, exchange)
     socket.setEncoding('ascii')
     socket.setTimeout(timeout)
     socket.on('error', error => {
@@ -57,7 +62,7 @@ export const checkSMTP = async (sender: string, recipient: string, exchange: str
     })
 
     socket.on('timeout', () => {
-      socket.emit('fail', 'Timeout - PORT')
+      socket.emit('fail', `Timeout - PORT - ${port}`)
     })
 
     socket.on('connect', () => {
